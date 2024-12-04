@@ -76,7 +76,7 @@ Reassign an already existing review to a different book:
 
 ### Reassign an Existing Item
 
-\App\Models\Book::where('title', 'like', '%delectus%')->get();
+    \App\Models\Book::where('title', 'like', '%delectus%')->get();
 
 ### Calling Scope or Query Builder
 
