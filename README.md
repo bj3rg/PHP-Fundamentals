@@ -8,31 +8,32 @@ This document serves as a quick reference for common Laravel commands and workfl
 
 ### Create a New Laravel Project
 
-`composer create-project --prefer-dist laravel/laravel <projectName>`
+    `composer create-project --prefer-dist laravel/laravel <projectName>`
 
 ### Add Migrations
 
-`php artisan migrate`
+    `php artisan migrate`
 
 ### Create a Model with Migration
 
-`php artisan make:model <ModelName> --migration`
+    `php artisan make:model <ModelName> --migration`
 
 ### Create a Factory
 
-`php artisan make:factory <ModelName>Factory --model=<ModelName>`
+    `php artisan make:factory <ModelName>Factory --model=<ModelName>`
 
 ### Run Database Seeder
 
-`php artisan db:seed`
+    `php artisan db:seed`
 
 ### Refresh Migrations and Reseed Database
 
-`php artisan migrate:refresh --seed`
+    `php artisan migrate:refresh --seed`
 
 ### Use Tinker for Queries in the Command Line
 
-`php artisan tinker`
+    `php artisan tinker`
+
 _(Example: `\App\Models\Task::select('id', 'title')->where('completed', true)->get();`)_
 
 ---
