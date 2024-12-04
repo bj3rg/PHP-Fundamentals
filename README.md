@@ -14,6 +14,10 @@ This document serves as a quick reference for common Laravel commands and workfl
 
     `php artisan migrate`
 
+### Create a Controller with placeholder for CRUD function
+
+    `php artisan make:controller ReviewController --resource`
+
 ### Create a Model with Migration
 
     `php artisan make:model <ModelName> --migration`
@@ -94,3 +98,15 @@ We can convert those lines above into SQL Query by adding ' toSQL() '
     \App\models\Book::title('qui')->where('created_at', '>', '2023-04-02')->toSQL();
 
     result = = "select \* from `books` where `title` LIKE ? and `created_at` > ?"
+
+Using withCount in query, and will return reviews_count: <totalCount>
+
+    \App\Models\Book::limit(5)->withAvg('reviews', 'rating')->orderBy('reviews_avg_rating')->toSql();
+
+    result = "select `books`.*, (select avg(`reviews`.`rating`) from `reviews` where `books`.`id` = `reviews`.`book_id`) as `reviews_avg_rating` from `books` order by `reviews_avg_rating` asc limit 5"
+
+Get books of limit 5, and having a review count of greater than or equal to 40, and ordered by reviews_avg_rating in descending order
+
+    \App\Models\Book::withCount('reviews')->withAvg('reviews','rating')->having('reviews_count', '>=', 40)->orderBy('reviews_avg_rating', 'desc')->limit(5)->toSQL();
+
+    result = "select `books`.*, (select count(*) from `reviews` where `books`.`id` = `reviews`.`book_id`) as `reviews_count`, (select avg(`reviews`.`rating`) from `reviews` where `books`.`id` = `reviews`.`book_id`) as `reviews_avg_rating` from `books` having `reviews_count` >= ? order by `reviews_avg_rating` desc limit 5"
