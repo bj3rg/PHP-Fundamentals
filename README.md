@@ -42,9 +42,13 @@ _(Example: `\App\Models\Task::select('id', 'title')->where('completed', true)->g
 ### Add an Item
 
 $book = \App\Models\Book::find(1);
+
 $review = new \App\Models\Review();
+
 $review->review = 'This is fine';
+
 $review->rating = 3;
+
 $book->reviews()->save($review);
 
 ### Add a New Item
@@ -52,6 +56,7 @@ $book->reviews()->save($review);
 Use the `create` method to associate and save a new review directly to a book:
 
 $book = \App\Models\Book::find(1); // Find the book with ID 1
+
 $review = $book->reviews()->create([
 'review' => 'Sample Review',
 'rating' => 4
@@ -61,9 +66,12 @@ $review = $book->reviews()->create([
 
 Reassign an already existing review to a different book:
 
-$review = \App\Models\Review::find(1);  // Checks
+$review = \App\Models\Review::find(1); // Checks
+
 $review->book; // Get the book currently associated with this review
-$book2 = \App\Models\Book::find(2);  // Get the book with ID 2
+
+$book2 = \App\Models\Book::find(2); // Get the book with ID 2
+
 $book2->reviews()->save($review); // Reassigns and save the current review to Book with ID 2
 
 ### Reassign an Existing Item
@@ -72,15 +80,16 @@ $book2->reviews()->save($review); // Reassigns and save the current review to Bo
 
 ### Calling Scope or Query Builder
 
-<!-- After creating a querying function we can call it in tinker terminal,  e.g. scopeTitle = (title) -->
+    //After creating a querying function we can call it in tinker terminal, e.g. scopeTitle = (title)
 
 \App\models\Book::title('qui')->get();
 
-<!-- We can also add another parameters-->
+    //We can also add another parameters
 
 \App\models\Book::title('qui')->where('created_at', '>', '2023-04-02')->get();
 
-<!-- We can convert those lines above into SQL Query by adding ' toSQL() '  -->
+    //We can convert those lines above into SQL Query by adding ' toSQL() '
 
 \App\models\Book::title('qui')->where('created_at', '>', '2023-04-02')->toSQL();
+
 result = = "select \* from `books` where `title` LIKE ? and `created_at` > ?"
